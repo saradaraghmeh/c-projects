@@ -1,0 +1,117 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+void f1 (double x , string op) {
+    double radian = (x*M_PI) / 180;
+    if (op=="sin")
+    cout <<" sin("<<x<<") = "<< sin(radian);
+    else if (op=="cos")
+    cout <<" cos("<<x<<") = "<< cos(radian);
+    else if (op=="tan")
+    cout <<" tan("<<x<<") = "<< tan(radian);
+}
+
+void f2 (double x , string op) {
+    double radian = (x*M_PI) / 180;
+    if (op=="csc") {
+        if (fabs(sin(radian)) < 1e-9)
+        cout <<" csc("<<x<<") = 1/0";
+        else
+        cout <<" csc("<<x<<") = "<< 1/sin(radian);
+    }
+    else if (op=="sec") {
+        if (fabs(cos(radian)) < 1e-9)
+        cout <<" sec("<<x<<") = 1/0";
+        else
+        cout <<" sec("<<x<<") = "<< 1/cos(radian);
+    }
+    else if (op=="cot") {
+        if (fabs(tan(radian)) < 1e-9)
+        cout <<" cot("<<x<<") = 1/0";
+        else
+        cout <<" cot("<<x<<") = "<< 1/tan(radian);
+    }
+}
+
+void factorial (double x) {
+    int res=1;
+    while (x!=floor(x) || x<0) {
+        cout <<" error, enter a positive integer :\n ";
+        cin>>x;
+    }
+    if (x==0)
+    cout <<x<<"! = 1";
+    else {
+        int b =x;
+        while (x>=1) {
+            res *= x;
+            x--;
+        }
+        cout <<b<<"! = "<<res;
+    }
+}
+
+int main() {
+    int num ;
+    double x , y;
+    string op;
+    char op2;
+    cout << "calculator app\n what do you want to perform?\n 1- one variable operations \t\t\t 2- variable operations\n ";
+    cin>>num;
+    while (num!=1 && num!=2) {
+        cout <<" you should enter either 1 or 2\n ";
+        cin>>num;
+    }
+    if (num==1) {
+        cout <<" enter the name of the operation you want to perform :\n ( sin , cos , tan , sec , csc , cot , square_root , square , cube ,\n factorial , floor )\n ";
+        cin>> op;
+        cout <<" enter the number :\n ";
+        cin>>x;
+        if (op=="sin" || op=="cos" || op=="tan")
+        f1 (x,op);
+        else if (op=="csc" || op=="sec" || op=="cot")
+        f2 (x,op);
+        else if (op == "square_root")
+        cout << " √"<<x<< " = "<< sqrt(x);
+        else if (op == "square")
+        cout <<" "<<x<<"^2 = "<< x*x;
+        else if (op == "cube")
+        cout <<" "<<x<<"^3 = "<< pow(x,3);
+        else if (op == "factorial")
+        factorial (x);
+        else if (op == "floor")
+        cout << "floor "<<x <<" = "<< floor(x);
+        else
+        cout << "error";
+    }
+    if (num == 2) {
+        cout << " enter an equation (ex : 3 + 5) :\n (+ , - , * , / )\n ";
+        cin >> x>> op2 >> y ;
+        switch (op2) {
+            case '+' :
+            cout <<" "<< x <<" + "<<y<<" = "<< x+y;
+            break;
+            case '-' :
+            cout <<" "<< x <<" - "<<y<<" = "<< x-y;
+            break;
+            case '*' :
+            cout <<" "<< x <<" * "<<y<<" = "<< x*y;
+            break;
+            case '/' : {
+                while (y==0) {
+                    cout << "error , you can't divide a number by zero , enter the numbers again :\n number 1 = ";
+                    cin>>x;
+                    cout <<" number 2 = ";
+                    cin>>y;
+                }
+                cout <<" "<< x <<" / "<<y<<" = "<< x/y;
+                break;
+            }
+            default :
+            cout << "error";
+        }
+    }
+    return 0;
+}

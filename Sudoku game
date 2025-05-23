@@ -1,0 +1,76 @@
+#include <iostream>
+using namespace std;
+
+int main () {
+    cout<<"Sudoku\n";
+    int r , c , count=0;
+    char num ;
+    char arr[9][9] = {{'8' , '-' , '7' , '-' , '-' , '-' , '-' , '-' , '-'},{'9' , '-' , '5' , '3' , '2' , '7' , '-' , '-' , '8'},{'-' , '4' , '-' , '6' , '-' , '9' , '7' , '5' , '2'},{'-' , '-' , '3' , '-' , '-' , '-' , '2' , '7' , '-'},{'-' , '7' , '2' , '-' , '-' , '3' , '-' , '-' , '9'},{'-' , '-' , '-' , '9' , '-' , '-' , '4' , '3' , '-'},{'7' , '-' , '-' , '2' , '3' , '5' , '9' , '-' , '-'},{'-' , '5' , '4' , '7' , '9' , '-' , '8' , '2' , '-'},{'2' , '-' , '-' , '-' , '4' , '-' , '-' , '-' , '7'}
+    };
+    char answer[9][9] = {{'8' , '2' , '7' , '1' , '5' , '4' , '3' , '9' , '6'} ,{'9' , '6' , '5' , '3' , '2' , '7' , '1' , '4' , '8'} ,{'3' , '4' , '1' , '6' , '8' , '9' , '7' , '5' , '2'} ,{'5' , '9' , '3' , '4' , '6' , '8' , '2' , '7' , '1'} ,{'4' , '7' , '2' , '5' , '1' , '3' , '6' , '8' , '9'} ,{'6' , '1' , '8' , '9' , '7' , '2' , '4' , '3' , '5'} ,{'7' , '8' , '6' , '2' , '3' , '5' , '9' , '1' , '4'} ,{'1' , '5' , '4' , '7' , '9' , '6' , '8' , '2' , '3'} ,{'2' , '3' , '9' , '8' , '4' , '1' , '5' , '6' , '7'}};
+    for (int move=0 ; move<81 ; move++) {
+        count = 0;
+        cout << "✎  0  1  2    3  4  5    6  7  8\n   ︶ ︶ ︶   ︶ ︶ ︶   ︶ ︶ ︶\n";
+    for (int i = 0; i < 9; i++) {
+        cout << i << ")  ";
+        for (int j = 0; j < 9; j++) {
+            cout << arr[i][j] << "  ";
+            if ((j + 1) % 3 == 0 && j != 8) cout << "| ";
+        }
+        cout << "\n";
+        if ((i + 1) % 3 == 0 && i != 8) cout << "   -------------------------------\n";
+    }
+        cout << "row : ";
+        cin>>r;
+        if (r>8 || r<0) {
+            cout << "error ,try again\n";
+            continue;
+        }
+        cout << "column : ";
+        cin>>c;
+        if (c>8 || c<0) {
+            cout << "error ,try again\n";
+            continue;
+        }
+        while (arr[r][c] != '-') {
+            cout <<"this space is already occupied ! try again\n";
+            cout<<"row : ";
+            cin>>r;
+            while (r>8 || r<0) {
+                cout << "error ,try again\n";
+                cout<<"row : ";
+                cin>>r;
+            }
+            cout << "column : ";
+            cin>>c;
+            while (c>8 || c<0) {
+                cout << "error ,try again\n";
+                cout << "column : ";
+                cin>>c;
+            }
+        }
+        cout <<"number : ";
+        cin>>num;
+        while (num>'9' || num<'1') {
+            cout << "error ,try again\n";
+            cout<<"number : ";
+            cin>>num;
+        }
+        if (num != answer[r][c])
+        cout <<"wrong answer! try again\n";
+        else {
+            cout <<"correct !\n";
+            arr[r][c] = num;
+        }
+        for (int j=0 ; j<9 ; j++) {
+            for (int k=0 ; k<9 ; k++) {
+                if (arr[j][k]=='-')
+                count++;
+            }
+        }
+        if (count==0)
+        break;
+    }
+    cout <<"congratulations !! you just solved the puzzle 🎉🎉";
+    return 0;
+}

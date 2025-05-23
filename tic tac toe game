@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string player1 , player2;
+    int num ;
+    char arr[9] = {'0' ,'1' ,'2' ,'3' ,'4' ,'5' ,'6' ,'7' ,'8'};
+    cout <<"TIC TAC TOE GAME\nenter your name :\nplayer 1 : ";
+    cin>>player1;
+    cout<<"player 2 : ";
+    cin>>player2;
+    cout <<"🌟 :"<<player1 <<" is X and "<<player2 <<" is O !!\n";
+    for (int i=1 ; i<=9 ; i++) {
+        cout <<"      |     |     \n   "<<arr[0]<<"  |  "<<arr[1]<<"  |  "<<arr[2]<<"  \n _____|_____|_____\n      |     |     \n   "<<arr[3]<<"  |  "<<arr[4]<<"  |  "<<arr[5]<<"  \n _____|_____|_____\n      |     |     \n   "<<arr[6]<<"  |  "<<arr[7]<<"  |  "<<arr[8]<<"  \n      |     |     \n";
+        if ((arr[0]==arr[1] && arr[1]==arr[2] &&arr[0]=='o') || (arr[3]==arr[4] && arr[4]==arr[5] &&arr[3]=='o') || (arr[6]==arr[7] && arr[7]==arr[8] &&arr[6]=='o') || (arr[0]==arr[3] && arr[3]==arr[6] &&arr[0]=='o') || (arr[1]==arr[4] && arr[4]==arr[7] &&arr[1]=='o') || (arr[2]==arr[5] && arr[5]==arr[8] &&arr[2]=='o') || (arr[2]==arr[4] && arr[4]==arr[6] &&arr[2]=='o') || (arr[0]==arr[4] && arr[4]==arr[8] &&arr[0]=='o')) {
+                cout <<"🌟 :"<<player2<<" won!!!!!!!";
+                break;
+        }
+        if ((arr[0]==arr[1] && arr[1]==arr[2] &&arr[0]=='X') || (arr[3]==arr[4] && arr[4]==arr[5] &&arr[3]=='X') || (arr[6]==arr[7] && arr[7]==arr[8] &&arr[6]=='X') || (arr[0]==arr[3] && arr[3]==arr[6] &&arr[0]=='X') || (arr[1]==arr[4] && arr[4]==arr[7] &&arr[1]=='X') || (arr[2]==arr[5] && arr[5]==arr[8] &&arr[2]=='X') || (arr[2]==arr[4] && arr[4]==arr[6] &&arr[2]=='X') || (arr[0]==arr[4] && arr[4]==arr[8] &&arr[0]=='X')) {
+                cout <<"🌟 :"<<player1<<" won!!!!!!!";
+                break;
+        }
+        if(i%2!=0){
+            cout << "🌟 :"<<player1 <<", enter a number to place X in it's square !\n";
+            cin>>num;
+            while (num>8 || num<0) {
+                cout <<"🌟 :invalid number , try again :\n";
+                cin>>num;
+            }
+            if (arr[num]!= 'X' && arr[num]!= 'o')
+            arr[num]='X';
+            else {
+                while (arr[num]=='X' || arr[num]=='o') {
+                    cout<<"🌟 :this square is already occupied, chose another one :\n";
+                    cin>>num;
+                }
+                arr[num] = 'X';
+            }
+        }
+        else {
+            cout << "🌟 :"<<player2 <<", enter a number to place o in it's square !\n";
+            cin>>num;
+            while (num>8 || num<0) {
+                cout <<"🌟 :invalid number , try again :\n";
+                cin>>num;
+            }
+            if (arr[num]!= 'X' && arr[num]!= 'o')
+            arr[num]='o';
+            else {
+                while (arr[num]=='X' || arr[num]=='o') {
+                    cout<<"🌟 :this square is already occupied, chose another one :\n";
+                    cin>>num;
+                }
+                arr[num] = 'o';
+            }
+    }
+    }
+    return 0;
+}

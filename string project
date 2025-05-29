@@ -1,0 +1,169 @@
+#include <iostream>
+#include <cctype>
+#include <cstring>
+using namespace std;
+
+char save[40][80];
+
+void upper (char phrase[]) {
+    for (int i=0 ; phrase[i]!='\0' ;i++) {
+        if (islower(phrase[i]))
+        phrase[i] = toupper(phrase[i]);
+    }
+    cout << phrase<<endl<<"anything else ?  ";
+}
+
+void lower (char phrase[]) {
+    for (int i=0 ; phrase[i]!='\0' ; i++) {
+        if (isupper(phrase[i]))
+        phrase[i] = tolower(phrase[i]);
+    }
+}
+
+void add (char phrase[]) {
+    int size = strlen(phrase);
+    int pos;
+    char str [80] , ans[80] , temp[80];
+    cout <<"where do you want to add a new word?\n(start , middle , end)\n";
+    cin.getline (ans , 80);
+    lower (ans);
+    if (strstr(ans , "middle")) {
+        cout<<"your cuurent string is : "<<endl<<phrase<<endl;
+        for (int i=0 ; i<size ; i++) {
+            if ((phrase[i]==' '))
+            cout << i;
+            else
+            cout <<" ";
+        }
+        cout<<"\nadd in position number : ";
+        cin>> pos;
+        cin.ignore();
+        cout <<"the addition :\n";
+        cin.getline(str , 80);
+        strncpy (temp , phrase , pos);
+        strcat(temp , " ");
+        strcat(temp , str);
+        strcat (temp , phrase+pos);
+        strcpy(phrase , temp);
+    }
+    if (strstr (ans , "start")) {
+        cout <<"the addition :\n";
+        cin.getline(str , 80);
+        strcat (str , phrase);
+        strcpy (phrase , str);
+    }
+    if (strstr(ans , "end")) {
+        cout <<"the addition :\n";
+        cin.getline(str , 80);
+        strcat(phrase , " ");
+        strcat (phrase , str);
+    }
+    cout <<phrase << endl <<"anything else ?  ";
+}
+
+void dlete (char phrase[]) {
+    char ans [80] , temp[80];
+    cout << "your current string is : "<<phrase<<"\nwhat word do you want to delete ? ";
+    cin.getline (ans , 80);
+    if (!(strstr(phrase , ans))) {
+        while (!(strstr(phrase , ans))) {
+            cout << "couldn't find word , try again :\n";
+            cin.getline (ans , 80);
+        }
+    }
+    while (strstr(phrase , ans)) {
+        char * pos = strstr (phrase , ans);
+        int length = pos - phrase;
+        strncpy (temp , phrase , length);
+        temp[length] = '\0';
+        strcat (temp , pos+strlen(ans));
+        phrase[0] = '\0';
+        strcpy (phrase , temp);
+    }
+    cout << phrase <<"\nanything else ? ";
+}
+
+void reverse (char phrase []) {
+    char temp[80];
+    int j=0;
+    int size = strlen(phrase);
+    for (int i=size-1 ; i>=0 ; i--) {
+        temp[i] = phrase[j];
+        j++;
+    }
+    temp[size] = '\0';
+    strcpy(phrase , temp);
+    cout <<phrase <<"\nanything else ? ";
+}
+
+void find (char phrase[]) {
+    char c , v;
+    int count =0 ;
+    cout <<"enter the character you want to count : ";
+    cin>> c;
+    cin.ignore();
+    if (isupper(c))
+    v= tolower(c);
+    else
+    v= toupper(c);
+    for (int i=0 ; i<strlen(phrase) ; i++) {
+        if ((phrase[i]==c) || (phrase[i]==v) )
+        count ++;
+    }
+    cout << "the answer is : "<< count <<"\nanything else ? ";
+}
+
+void convert (char phrase []) {
+    int count = 0 , j=0;
+    char temp[80] , copy[80];
+    strcpy(copy , phrase);
+    strcat (copy , " ");
+    char * pos = copy;
+    for (int i=0 ; copy[i] != '\0'; i++) {
+        if (copy[i] == ' ') {
+            strncpy (temp , pos , count);
+            pos = &copy[i+1];
+            temp[count] = '\0';
+            strcpy (save[j] , temp);
+            j++;
+            count =0;
+        }
+        else
+        count ++;
+    }
+    for (int k=0 ; k<j ; k++) {
+        cout << save [k] << endl;
+    }
+    cout << "anything else ? ";
+}
+
+int main() {
+    char phrase [80] , s[80];
+    int size;
+    cout <<"enter a string : \n";
+    cin.getline (phrase , 80);
+    cout<<"done! what operation do you want to perform?\n-upper\n-lower\n-add (a word\\substring)\n-delete (a word\\substring)\n-reverse\n-find (the number of occurrences of character in string) \n-convert (the string to an array of words)\n-exit\n\nanswer : ";
+    do {
+    cin.getline (s , 80);
+    lower (s);
+    if (strstr(s , "upper"))
+    upper (phrase);
+    if (strstr(s , "lower")) {
+        lower (phrase);
+        cout << phrase<<endl<<"anything else ?  ";
+    }
+    if (strstr(s , "add"))
+    add (phrase);
+    if (strstr(s , "delete"))
+    dlete (phrase);
+    if (strstr(s , "reverse"))
+    reverse (phrase);
+    if(strstr(s , "find"))
+    find (phrase);
+    if (strstr(s , "convert"))
+    convert (phrase);
+    }
+    while (!(strstr(s , "exit")));
+    cout <<"thanks for using our program !!";
+    return 0;
+}

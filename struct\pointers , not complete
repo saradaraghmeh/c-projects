@@ -1,0 +1,49 @@
+#include <iostream>
+#include <string>
+#include <cctype>
+using namespace std;
+
+struct student {
+    int id;
+    string name[2];
+    float grade[5];
+};
+
+void add () {
+    student * ptr = new student;
+    cout <<"enter id :\t\t";
+    cin>>ptr->id;
+    cout<<"enter name :\nfirst name :\t\t";
+    cin>>ptr->name[0];
+    cout<<"lastname :\t\t";
+    cin>>ptr->name[1];
+    cout<<"enter grades :math grade :\t\t";
+    cin>>ptr->grade[0];
+    cout<<"english grade :\t\t";
+    cin>>ptr->grade[1];
+    cout<<"science grade :\t\t";
+    cin>>ptr->grade[2];
+    cout<<"history grade :\t\t";
+    cin>>ptr->grade[3];
+    cout<<"programming grade :\t\t";
+    cin>>ptr->grade[4];
+}
+
+void lower (string & str) {
+    for (int i=0 ; i<str.length() ; i++) {
+        str[i] = tolower(str[i]);
+    }
+}
+
+int main() {
+    string op;
+    do {
+        cout <<"menu\nwhat operation do you want to perform??\n🐞 add a new student\n🐞 view all students\n🐞delete a student by id\n🐞calculate average grade\n🐞 exit\noperation :\t\t";
+        getline (cin , op);
+        lower (op);
+        if (op == "add")
+        cout<<"";
+    }
+    while (op != "exit");
+    return 0;
+}

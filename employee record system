@@ -1,0 +1,138 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct employee {
+    int id = 0;
+    string empname;
+    float salary;
+    float bonus=0;
+    float deductions=0;
+};
+
+employee a[10];
+int count =0;
+
+void addemp () {
+    int num , m;
+    cout<<"how many emplyees do you want to add?\t\t";
+    cin>>num;
+    num+=count;
+    for (int i=count ; i<num ; i++) {
+        cout <<"enter employee id :\t\t";
+        cin>>m;
+        for (int j=0 ; j<count ; j++) {
+            while (a[j].id == m) {
+                cout <<"invalid id ! try again :\t\t";
+                cin>>m;
+            }
+        }
+        a[i].id = m;
+        cin.ignore();
+        cout <<"enter employee name :\t\t";
+        getline(cin,a[i].empname);
+        cout <<"enter employee salary :\t\t";
+        cin>>a[i].salary;
+        count+=1;
+        cout<<"------------------------------\n";
+    }
+}
+
+void addbonus () {
+    int x , b=0;
+    float bonus;
+    cout<<"enter emplyee id :\t\t";
+    cin>> x;
+    for (int i=0 ; i<count ; i++) {
+        if (a[i].id == x) {
+            cout <<"enter bonus :\t\t";
+            cin>>bonus;
+            a[i].bonus = bonus ;
+            b=1;
+            cout <<"done !\n";
+        }
+    }
+    if (b==0)
+    cout <<"employee with id "<< x <<" does not exist\n";
+}
+
+void adddeductions () {
+    int x , b=0;
+    float deductions;
+    cout<<"enter emplyee id :\t\t";
+    cin>> x;
+    for (int i=0 ; i<count ; i++) {
+        if (a[i].id == x) {
+            cout <<"enter deductions :\t\t";
+            cin>>deductions;
+            a[i].deductions = deductions ;
+            b=1;
+            cout <<"done !\n";
+        }
+    }
+    if (b==0)
+    cout <<"employee with id "<< x <<" does not exist\n";
+}
+
+float netsalary (int x) {
+    return a[x].salary + a[x].bonus - a[x].deductions;
+}
+
+void display () {
+    if (count == 0)
+    cout << "there are no emplyees yet ! \n";
+    else {
+        for (int i=0 ; i<count ; i++) {
+            cout << "\nid : " << a[i].id;
+            cout <<"\nname : " << a[i].empname;
+            cout <<"\nsalary : " << a[i].salary;
+            cout <<"\nbonus : " << a[i].bonus;
+            cout <<"\ndeductions : " << a[i].deductions;
+            cout <<"\nnetsalary : " << netsalary(i);
+            cout <<"\n------------------------------";
+        }
+    }
+}
+
+void calculate () {
+    float sum=0;
+    if (count == 0)
+    cout << "there are no emplyees yet ! \n";
+    else {
+        for (int i=0 ; i<count ; i++) {
+            sum += a[i].salary;
+        }
+        cout << "average salary = "<< sum/(float)count;
+}
+}
+
+int main() {
+    int op;
+    cout <<"------------------------------\nmenu :\n1-view menu\n2-add employee\\employees\n3-add bonus\n4-add deductions\n5-view employees\n6-calculate average salary\n7-exit\n------------------------------\n";
+    do {
+        cout<<"\nenter a number :\t\t";
+        cin>> op;
+        switch (op) {
+            case 1 :
+            cout <<"------------------------------\nmenu :\n1-view menu\n2-add employee\\employees\n3-add bonus\n4-add deductions\n5-view employees\n6-calculate average salary\n7-exit\n------------------------------\n";
+            break;
+            case 2 :
+            addemp();
+            break;
+            case 3 :
+            addbonus ();
+            break;
+            case 4 :
+            adddeductions ();
+            break;
+            case 5 :
+            display ();
+            break;
+            case 6 :
+            calculate ();
+            break;
+        }
+    }
+    while (op != 7);
+    return 0;
+}
